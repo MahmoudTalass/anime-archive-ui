@@ -1,35 +1,35 @@
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
-interface UserInfo {
-   id: string;
-   username: string;
-   email: string;
-   token: string;
+export interface UserInfo {
+  id: string;
+  username: string;
+  email: string;
+  token: string;
 }
 
-interface AuthContextType {
-   userInfo: UserInfo | null;
-   login: (userInfo: UserInfo) => void;
-   logout: () => void;
+export interface AuthContextType {
+  userInfo: UserInfo | null;
+  login: (userInfo: UserInfo) => void;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.JSX.Element }) => {
-   const [userInfo, setUserInfo] = useLocalStorage("userInfo", null);
+  const [userInfo, setUserInfo] = useLocalStorage("userInfo", null);
 
-   const login = (userInfo: UserInfo) => {
-      setUserInfo(userInfo);
-   };
+  const login = (userInfo: UserInfo) => {
+    setUserInfo(userInfo);
+  };
 
-   const logout = () => {
-      setUserInfo(null);
-   };
+  const logout = () => {
+    setUserInfo(null);
+  };
 
-   return (
-      <AuthContext.Provider value={{ login, logout, userInfo }}>{children}</AuthContext.Provider>
-   );
+  const value: AuthContextType = { login, logout, userInfo };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext<AuthContextType | null>(AuthContext);
