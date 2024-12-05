@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router";
-import { FrontPage } from "./frontpage/FrontPage.tsx";
+import { FrontPage } from "./frontPage/FrontPage.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
 import { LoginForm } from "./auth/LoginForm.tsx";
 import { RegisterForm } from "./auth/RegisterForm.tsx";
