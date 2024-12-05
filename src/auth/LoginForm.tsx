@@ -4,15 +4,35 @@ import { AuthFormInput } from "./components/AuthFormInput";
 import React, { useState } from "react";
 import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
 import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
+import { useAuthenticate } from "./useAuthenticate";
+import { AuthContextType, useAuth } from "./AuthProvider";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { handleAuth, errorMsg, loading } = useAuthenticate("login");
+  const { userInfo }: AuthContextType = useAuth() as AuthContextType;
+
+  if (userInfo) {
+    // navigate user away from page
+  }
 
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
+
+  const onSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
+    if (email.trim() === "" || password.trim() === "") {
+      return;
+    }
+
+    handleAuth(email, password);
+    setPassword("");
+    if (!(typeof errorMsg === "string")) {
+      setEmail("");
+    }
+  };
 
   return (
     <AuthFormPageContainer>
@@ -37,8 +57,13 @@ export const LoginForm = () => {
             Create an account
           </Link>
         </p>
+        <>
+          {errorMsg && (
+            <p className="bg-red-600 p-2 text-center rounded-md">{errorMsg}</p>
+          )}
+        </>
       </AuthFormContainer>
-      <AuthFormSubmitBtn label="Login" onClick={() => console.log()} />
+      <AuthFormSubmitBtn disabled={loading} label="Login" onClick={onSubmit} />
     </AuthFormPageContainer>
   );
 };

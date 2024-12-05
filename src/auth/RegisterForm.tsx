@@ -19,6 +19,24 @@ export const RegisterForm = () => {
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
 
+  const onSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
+    if (
+      email.trim() === "" ||
+      username.trim() === "" ||
+      password.trim() === ""
+    ) {
+      return;
+    }
+
+    handleAuth(email, password, username);
+
+    setPassword("");
+    if (!(typeof errorMsg === "string")) {
+      setEmail("");
+      setUsername("");
+    }
+  };
+
   return (
     <AuthFormPageContainer>
       <AuthFormContainer>
@@ -49,9 +67,17 @@ export const RegisterForm = () => {
             Login
           </Link>
         </p>
-        <>{errorMsg && <p>{errorMsg}</p>}</>
+        <>
+          {errorMsg && (
+            <p className="bg-red-600 p-2 text-center rounded-md">{errorMsg}</p>
+          )}
+        </>
       </AuthFormContainer>
-      <AuthFormSubmitBtn label="Create Account" onClick={() => console.log()} />
+      <AuthFormSubmitBtn
+        disabled={loading}
+        label="Create Account"
+        onClick={onSubmit}
+      />
     </AuthFormPageContainer>
   );
 };
