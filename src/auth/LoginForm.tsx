@@ -1,9 +1,9 @@
 import { Link } from "react-router";
-import { AuthFormContainer } from "./AuthFormContainer";
-import { AuthFormInput } from "./AuthFormInput";
+import { AuthFormContainer } from "./components/AuthFormContainer";
+import { AuthFormInput } from "./components/AuthFormInput";
 import React, { useState } from "react";
-import { AuthFormPageContainer } from "./AuthFormPageContainer";
-import { AuthFormSubmitBtn } from "./AuthFormSubmitBtn";
+import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
+import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState<string>("");

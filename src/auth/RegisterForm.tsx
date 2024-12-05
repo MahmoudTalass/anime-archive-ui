@@ -1,10 +1,10 @@
 import { Link } from "react-router";
-import { AuthFormContainer } from "./AuthFormContainer";
-import { AuthFormInput } from "./AuthFormInput";
+import { AuthFormContainer } from "./components/AuthFormContainer";
+import { AuthFormInput } from "./components/AuthFormInput";
 import { useState } from "react";
 import { useAuthenticate } from "./useAuthenticate";
-import { AuthFormPageContainer } from "./AuthFormPageContainer";
-import { AuthFormSubmitBtn } from "./AuthFormSubmitBtn";
+import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
+import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
 
 export const RegisterForm = () => {
   const [username, setUsername] = useState<string>("");
