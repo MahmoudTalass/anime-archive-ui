@@ -7,7 +7,7 @@ export const AuthFormSubmitBtn = ({
 }: {
   label: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  disabled: boolean;
+  disabled?: boolean;
 }) => {
   return (
     <button
