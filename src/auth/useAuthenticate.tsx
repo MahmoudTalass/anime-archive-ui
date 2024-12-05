@@ -36,7 +36,9 @@ export const useAuthenticate = (authType: "register" | "login") => {
       email,
       password,
     };
-    let headers: { Authorization?: string } = {};
+    let headers: { Authorization?: string; "Content-Type": string } = {
+      "Content-Type": "application/json",
+    };
 
     if (authType == "register") {
       body.username = username;
@@ -55,6 +57,8 @@ export const useAuthenticate = (authType: "register" | "login") => {
 
       const responseBody: AuthSuccessResponseType | AuthErrorResponseType =
         await response.json();
+
+      console.log(responseBody);
 
       if ("error" in responseBody) {
         if (!response.ok) {
