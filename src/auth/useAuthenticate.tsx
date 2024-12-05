@@ -58,8 +58,6 @@ export const useAuthenticate = (authType: "register" | "login") => {
       const responseBody: AuthSuccessResponseType | AuthErrorResponseType =
         await response.json();
 
-      console.log(responseBody);
-
       if ("error" in responseBody) {
         if (!response.ok) {
           if (
