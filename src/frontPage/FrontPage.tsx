@@ -23,15 +23,21 @@ export const FrontPage = (): React.JSX.Element => {
             <p className="text-5xl font-bold text-accent">Anime Archive</p>
           </div>
           <div className="font-bold flex flex-wrap gap-8">
-            <button className="bg-transparent border-2 border-white rounded-xl w-32 p-2 hover:scale-105 transition-transform">
-              <Link to="/login">Login</Link>
-            </button>
-            <button className="bg-transparent border-2 border-white rounded-xl w-32 px-5 hover:scale-105 transition-transform">
-              <Link to="/register">Create account</Link>
-            </button>
-            <button className="rounded-xl w-32 py-3 bg-accent hover:scale-105 transition-transform">
-              Browse Anime
-            </button>
+            <Link to="/login">
+              <button className="bg-transparent border-2 border-white rounded-xl w-32 p-2 hover:scale-105 transition-transform">
+                Login
+              </button>
+            </Link>
+            <Link to="/register">
+              <button className="bg-transparent border-2 border-white rounded-xl w-32 px-5 hover:scale-105 transition-transform">
+                Create account
+              </button>
+            </Link>
+            <Link to="/home">
+              <button className="rounded-xl w-32 py-3 bg-accent hover:scale-105 transition-transform">
+                Browse Anime
+              </button>
+            </Link>
           </div>
         </div>
       </section>
