@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimesAPIResponse, IAnime } from "./types";
 import { AnimeCard } from "./AnimeCard";
-import { FaRandom } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaRandom } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
@@ -17,6 +17,14 @@ export const BrowseAnimesPage = () => {
 
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchTerm(e.target.value);
+  const handleIncrementPageNum = () => {
+    if (currentPage !== data?.pagination.totalPages)
+      setCurrentPage(currentPage + 1);
+  };
+
+  const handleDecrementPageNum = () => {
+    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+  };
 
   useEffect(() => {
     setErrorMsg(null);
@@ -101,10 +109,10 @@ export const BrowseAnimesPage = () => {
               <AnimeCard anime={anime} key={anime.malId} />
             ))}
           </div>
-          <div>
-            <p>
-              Page {currentPage} out of {data?.pagination.totalPages}
-            </p>
+          <div className="flex items-center gap-6 text-xl">
+            <FaArrowLeft onClick={handleDecrementPageNum} />
+            <p>{currentPage}</p>
+            <FaArrowRight onClick={handleIncrementPageNum} />
           </div>
         </>
       )}
