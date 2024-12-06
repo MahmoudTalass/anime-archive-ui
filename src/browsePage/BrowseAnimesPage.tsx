@@ -12,14 +12,20 @@ export const BrowseAnimesPage = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>();
   const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [currentSearchTerm, setCurrentSearchTerm] = useState("");
+  const [searchTermInput, setSearchTermInput] = useState("");
   const { userInfo } = useAuth() as AuthContextType;
 
-  const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setSearchTerm(e.target.value);
+  const handleSearchTermInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => setSearchTermInput(e.target.value);
   const handleIncrementPageNum = () => {
     if (currentPage !== data?.pagination.totalPages)
       setCurrentPage(currentPage + 1);
+  };
+  const handleCurrentSearchTermChange = () => {
+    if (searchTermInput !== currentSearchTerm)
+      setCurrentSearchTerm(searchTermInput);
   };
 
   const handleDecrementPageNum = () => {
@@ -33,7 +39,8 @@ export const BrowseAnimesPage = () => {
 
     const fetchData = async () => {
       const controller = new AbortController();
-      const url = `http://localhost:3000/api/v1/animes?page=${currentPage}`;
+      const url = `http://localhost:3000/api/v1/animes?page=${currentPage}&q=${currentSearchTerm}`;
+
       try {
         const response = await fetch(url, { signal: controller.signal });
         const responseBody: AnimesAPIResponse = await response.json();
@@ -43,7 +50,6 @@ export const BrowseAnimesPage = () => {
             "Could not retrieve anime data. Please try again later."
           );
         }
-
         setData(responseBody);
       } catch (err) {
         if (!controller.signal.aborted && err instanceof Error) {
@@ -56,7 +62,7 @@ export const BrowseAnimesPage = () => {
     fetchData();
 
     return controller.abort();
-  }, [currentPage]);
+  }, [currentPage, currentSearchTerm]);
 
   return (
     <section className="flex flex-col items-center p-8 gap-10">
@@ -67,12 +73,15 @@ export const BrowseAnimesPage = () => {
         <div className="flex items-center bg-white w-1/3 p-2 rounded-sm ">
           <input
             type="search"
-            value={searchTerm}
-            onChange={handleSearchTermChange}
+            value={searchTermInput}
+            onChange={handleSearchTermInputChange}
             placeholder="Search anime..."
-            className="grow"
+            className="grow text-black"
           />
-          <IoMdSearch className="text-complementary" />
+          <IoMdSearch
+            className="text-complementary text-2xl"
+            onClick={handleCurrentSearchTermChange}
+          />
         </div>
         <div className="flex flex-col items-center">
           <FaRandom />
@@ -101,6 +110,10 @@ export const BrowseAnimesPage = () => {
         <div className="flex h-screen items-center justify-center">
           <AiOutlineLoading3Quarters size="3rem" className="" />
         </div>
+      ) : errorMsg ? (
+        <p>{errorMsg}</p>
+      ) : data?.data.length === 0 ? (
+        <p>No anime data to display.</p>
       ) : (
         <>
           {" "}
@@ -111,7 +124,9 @@ export const BrowseAnimesPage = () => {
           </div>
           <div className="flex items-center gap-6 text-xl">
             <FaArrowLeft onClick={handleDecrementPageNum} />
-            <p>{currentPage}</p>
+            <p>
+              {currentPage} ... {data?.pagination.totalPages}
+            </p>
             <FaArrowRight onClick={handleIncrementPageNum} />
           </div>
         </>
