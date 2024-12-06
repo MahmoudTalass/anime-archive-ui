@@ -4,8 +4,7 @@ import { AnimeCard } from "./AnimeCard";
 import { FaArrowLeft, FaArrowRight, FaRandom } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { AuthContextType, useAuth } from "../auth/AuthProvider";
-import { Link } from "react-router";
+import { Header } from "../commonComponents/Header";
 
 export const BrowseAnimesPage = () => {
   const [data, setData] = useState<AnimesAPIResponse | null>(null);
@@ -14,7 +13,6 @@ export const BrowseAnimesPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentSearchTerm, setCurrentSearchTerm] = useState("");
   const [searchTermInput, setSearchTermInput] = useState("");
-  const { userInfo } = useAuth() as AuthContextType;
 
   const handleSearchTermInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -38,6 +36,7 @@ export const BrowseAnimesPage = () => {
     const controller = new AbortController();
 
     const fetchData = async () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       const controller = new AbortController();
       const url = `http://localhost:3000/api/v1/animes?page=${currentPage}&q=${currentSearchTerm}`;
 
@@ -65,11 +64,8 @@ export const BrowseAnimesPage = () => {
   }, [currentPage, currentSearchTerm]);
 
   return (
-    <section className="flex flex-col items-center p-8 gap-10">
-      <div className="flex justify-around items-center w-full">
-        <h1 className="text-5xl font-bold">
-          Anime <span className="text-complementary">Archive</span>
-        </h1>
+    <>
+      <Header>
         <div className="flex items-center bg-white w-1/3 p-2 rounded-sm ">
           <input
             type="search"
@@ -83,54 +79,34 @@ export const BrowseAnimesPage = () => {
             onClick={handleCurrentSearchTermChange}
           />
         </div>
-        <div className="flex flex-col items-center">
-          <FaRandom />
-          <p>Random</p>
-        </div>
-        {userInfo ? (
-          <Link to="/mylist" className="text-lg">
-            My List
-          </Link>
+      </Header>
+      <section className="flex flex-col items-center p-8 gap-10">
+        {loading ? (
+          <div className="flex h-screen items-center justify-center">
+            <AiOutlineLoading3Quarters size="3rem" className="animate-spin" />
+          </div>
+        ) : errorMsg ? (
+          <p>{errorMsg}</p>
+        ) : data?.data.length === 0 ? (
+          <p>No anime data to display.</p>
         ) : (
-          <div className="flex gap-4">
-            <Link to="/login">
-              <button className="bg-[#494395] px-4 py-3 rounded-xl font-bold">
-                Login
-              </button>
-            </Link>
-            <Link to="/register">
-              <button className="bg-[#494395] px-4 py-3 rounded-xl font-bold">
-                Register
-              </button>
-            </Link>
-          </div>
+          <>
+            {" "}
+            <div className="flex gap-4 flex-wrap ">
+              {data?.data.map((anime: Partial<IAnime>) => (
+                <AnimeCard anime={anime} key={anime.malId} />
+              ))}
+            </div>
+            <div className="flex items-center gap-6 text-xl">
+              <FaArrowLeft onClick={handleDecrementPageNum} />
+              <p>
+                {currentPage} ... {data?.pagination.totalPages}
+              </p>
+              <FaArrowRight onClick={handleIncrementPageNum} />
+            </div>
+          </>
         )}
-      </div>
-      {loading ? (
-        <div className="flex h-screen items-center justify-center">
-          <AiOutlineLoading3Quarters size="3rem" className="" />
-        </div>
-      ) : errorMsg ? (
-        <p>{errorMsg}</p>
-      ) : data?.data.length === 0 ? (
-        <p>No anime data to display.</p>
-      ) : (
-        <>
-          {" "}
-          <div className="flex gap-4 flex-wrap ">
-            {data?.data.map((anime: Partial<IAnime>) => (
-              <AnimeCard anime={anime} key={anime.malId} />
-            ))}
-          </div>
-          <div className="flex items-center gap-6 text-xl">
-            <FaArrowLeft onClick={handleDecrementPageNum} />
-            <p>
-              {currentPage} ... {data?.pagination.totalPages}
-            </p>
-            <FaArrowRight onClick={handleIncrementPageNum} />
-          </div>
-        </>
-      )}
-    </section>
+      </section>
+    </>
   );
 };
