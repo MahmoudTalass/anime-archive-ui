@@ -7,6 +7,7 @@ import { AuthProvider } from "./auth/AuthProvider.tsx";
 import { LoginForm } from "./auth/LoginForm.tsx";
 import { RegisterForm } from "./auth/RegisterForm.tsx";
 import { PageLayout } from "./PageLayout.tsx";
+import { BrowseAnimesPage } from "./browsePage/BrowseAnimesPage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/" element={<FrontPage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/home" element={<BrowseAnimesPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
