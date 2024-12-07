@@ -76,7 +76,10 @@ export const AnimePage = () => {
                   <span className="font-bold">Episodes</span>:{" "}
                   {anime?.episodes || "Unavailable"}
                 </p>
-                <a href={anime?.url} target="_blank" className="underline">
+                <a
+                  href={anime?.url}
+                  target="_blank"
+                  className="underline w-fit">
                   More Details
                 </a>
               </div>
