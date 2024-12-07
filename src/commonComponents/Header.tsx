@@ -1,6 +1,6 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FaRandom } from "react-icons/fa";
-import React from "react";
+import React, { useState } from "react";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 
 export const Header = ({
@@ -9,6 +9,24 @@ export const Header = ({
   children?: React.JSX.Element | React.JSX.Element[];
 }) => {
   const { userInfo } = useAuth() as AuthContextType;
+  const navigate = useNavigate();
+  const [getRandomLoading, setGetRandomLoading] = useState(false);
+
+  const handleRandomAnimeBtn = async () => {
+    setGetRandomLoading(true);
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/v1/animes/random"
+      );
+      const data: { data: { malId: number } } = await response.json();
+      if (response.ok) {
+        navigate(`/animes/${data.data.malId}`);
+      }
+    } catch (err) {
+    } finally {
+      setGetRandomLoading(false);
+    }
+  };
 
   return (
     <div className="flex justify-around items-center w-full p-4 py-8">
@@ -18,10 +36,13 @@ export const Header = ({
         </h1>
       </Link>
       {children}
-      <div className="flex flex-col items-center">
-        <FaRandom />
+      <button
+        className="flex flex-col items-center"
+        onClick={handleRandomAnimeBtn}
+        disabled={getRandomLoading}>
+        <FaRandom size="1.2rem" />
         <p>Random</p>
-      </div>
+      </button>
       {userInfo ? (
         <Link to="/mylist" className="text-lg">
           My List
