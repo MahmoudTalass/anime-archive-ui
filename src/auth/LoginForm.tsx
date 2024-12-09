@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthFormContainer } from "./components/AuthFormContainer";
 import { AuthFormInput } from "./components/AuthFormInput";
 import React, { useState } from "react";
@@ -12,10 +12,9 @@ export const LoginForm = () => {
   const [password, setPassword] = useState<string>("");
   const { handleAuth, errorMsg, loading } = useAuthenticate("login");
   const { userInfo }: AuthContextType = useAuth() as AuthContextType;
+  const navigate = useNavigate();
 
-  if (userInfo) {
-    // navigate user away from page
-  }
+  if (userInfo) navigate("/");
 
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);

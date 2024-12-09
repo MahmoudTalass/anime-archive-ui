@@ -1,16 +1,21 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthFormContainer } from "./components/AuthFormContainer";
 import { AuthFormInput } from "./components/AuthFormInput";
 import { useState } from "react";
 import { useAuthenticate } from "./useAuthenticate";
 import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
 import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
+import { AuthContextType, useAuth } from "./AuthProvider";
 
 export const RegisterForm = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { handleAuth, errorMsg, loading } = useAuthenticate("register");
+  const { userInfo } = useAuth() as AuthContextType;
+  const navigate = useNavigate();
+
+  if (userInfo) navigate("/");
 
   const handleUsernameInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value);
