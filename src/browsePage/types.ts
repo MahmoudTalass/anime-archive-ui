@@ -12,6 +12,7 @@ export interface IAnime {
 export type AnimeWatchStatus = "completed" | "watching" | "planning to watch";
 
 export interface IUserAnimeEntry {
+  _id: string;
   malId: number;
   status: AnimeWatchStatus;
   startedDate?: Date;
@@ -21,6 +22,7 @@ export interface IUserAnimeEntry {
   createdAt: Date;
   updatedAt: Date;
   score?: number;
+  animeDetails: Omit<IAnime, "year" | "synopsis" | "url" | "episodes">;
 }
 
 export interface PaginationResponse {
