@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimesAPIResponse, IAnime } from "./types";
 import { AnimeCard } from "./AnimeCard";
-import { FaArrowLeft, FaArrowRight, FaRandom } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Header } from "../commonComponents/Header";
@@ -66,7 +66,7 @@ export const BrowseAnimesPage = () => {
   return (
     <>
       <Header>
-        <div className="flex items-center bg-white w-1/3 p-2 rounded-sm ">
+        <div className="flex items-center bg-white w-1/3 p-2 rounded-lg ">
           <input
             type="search"
             value={searchTermInput}
