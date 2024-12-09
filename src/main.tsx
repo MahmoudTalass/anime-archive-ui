@@ -9,6 +9,7 @@ import { RegisterForm } from "./auth/RegisterForm.tsx";
 import { PageLayout } from "./PageLayout.tsx";
 import { BrowseAnimesPage } from "./browsePage/BrowseAnimesPage.tsx";
 import { AnimePage } from "./anime/AnimePage.tsx";
+import { AnimeList } from "./userList/AnimeList.tsx";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/home" element={<BrowseAnimesPage />} />
           <Route path="/animes/:malId" element={<AnimePage />} />
+          <Route path="/mylist" element={<AnimeList />} />
         </Route>
       </Routes>
     </BrowserRouter>
