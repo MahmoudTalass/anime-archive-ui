@@ -92,7 +92,7 @@ export const BrowseAnimesPage = () => {
         ) : (
           <>
             {" "}
-            <div className="flex gap-4 flex-wrap ">
+            <div className="flex gap-5 flex-wrap ">
               {data?.data.map((anime: Partial<IAnime>) => (
                 <AnimeCard anime={anime} key={anime.malId} />
               ))}
