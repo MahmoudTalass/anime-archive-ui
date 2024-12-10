@@ -38,23 +38,26 @@ export const AnimeEntryCard = ({
         />
         {hovering && (
           <div className="absolute w-full inset-0 bg-black bg-opacity-50 transition duration-150 rounded-lg flex flex-col justify-center items-center gap-4">
-            <button className="bg-dominant w-fit p-1 px-3 rounded-md">
+            <button className="bg-[#494395] w-fit p-1 px-3 rounded-md">
               Update
             </button>
 
             <Link to={`/animes/${animeEntry.malId}`}>
-              <button className="bg-dominant w-fit p-1 px-3 rounded-md">
+              <button className="bg-[#494395] w-fit p-1 px-3 rounded-md">
                 View
               </button>
             </Link>
           </div>
         )}
       </div>
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-2 items-center">
         <div
           className={`rounded-full ${statusColor} size-4 inline-block flex-shrink-0`}></div>
-        <p className="text-xl font-bold">{animeEntry.animeDetails.title}</p>
+        <p className="text-lg">{animeEntry.status}</p>
       </div>
+      <p className="text-xl font-bold text-start">
+        {animeEntry.animeDetails.title}
+      </p>
     </article>
   );
 };
