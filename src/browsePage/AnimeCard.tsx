@@ -7,7 +7,7 @@ import { useAddAnimeToList } from "../useAddAnimeToList";
 export const AnimeCard = ({ anime }: { anime: Partial<IAnime> }) => {
   const { userInfo } = useAuth() as AuthContextType;
   const [hovering, setHovering] = useState(false);
-  const handleAddToList = useAddAnimeToList(anime.malId);
+  const { handleAddToList } = useAddAnimeToList(anime.malId);
 
   const handleSwitchHoverStatus = () => {
     if (userInfo) setHovering(!hovering);
