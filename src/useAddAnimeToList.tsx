@@ -25,5 +25,5 @@ export const useAddAnimeToList = (malId: number | undefined) => {
     }
   };
 
-  return handleAddToList;
+  return { handleAddToList };
 };
