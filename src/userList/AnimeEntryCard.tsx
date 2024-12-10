@@ -22,9 +22,9 @@ export const AnimeEntryCard = ({
         alt={`Poster for anime with title '${animeEntry.animeDetails.title}'`}
         className="w-full rounded-lg hover:scale-[1.01] transition duration-150 "
       />
-      <div className="flex items-center gap-4">
+      <div className="flex gap-4 items-center">
         <div
-          className={`rounded-full ${statusColor} h-4 w-4 inline-block`}></div>
+          className={`rounded-full ${statusColor} size-4 inline-block flex-shrink-0`}></div>
         <p className="text-xl font-bold">{animeEntry.animeDetails.title}</p>
       </div>
     </article>
