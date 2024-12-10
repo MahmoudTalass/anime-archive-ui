@@ -51,6 +51,7 @@ export const AnimeList = () => {
     setLoading(true);
 
     const fetchData = async () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       let url = `http://localhost:3000/api/v1/me/animes?page=${currentPage}`;
       if (statusFilter !== "") url += `&status=${statusFilter}`;
       if (currentSearchTerm !== "") url += `&q=${currentSearchTerm}`;
@@ -86,7 +87,7 @@ export const AnimeList = () => {
       <Header />
       <section className="flex flex-col p-20 gap-14">
         <div className="flex justify-between">
-          <div className="flex items-center bg-white max-w-[750px] w-full p-2 rounded-lg ">
+          <div className="flex items-center bg-white max-w-96 w-full p-2 rounded-lg ">
             <input
               type="search"
               value={searchTermInput}
@@ -119,7 +120,7 @@ export const AnimeList = () => {
         ) : (
           <>
             {" "}
-            <div className="flex gap-4 flex-wrap ">
+            <div className="flex gap-8 flex-wrap ">
               {data?.data.map((animeEntry: IUserAnimeEntry) => (
                 <AnimeEntryCard animeEntry={animeEntry} key={animeEntry._id} />
               ))}
