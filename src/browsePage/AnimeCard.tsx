@@ -2,34 +2,15 @@ import { Link } from "react-router";
 import { IAnime } from "./types";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import { useState } from "react";
+import { useAddAnimeToList } from "../useAddAnimeToList";
 
 export const AnimeCard = ({ anime }: { anime: Partial<IAnime> }) => {
   const { userInfo } = useAuth() as AuthContextType;
   const [hovering, setHovering] = useState(false);
+  const handleAddToList = useAddAnimeToList(anime.malId);
 
   const handleSwitchHoverStatus = () => {
     if (userInfo) setHovering(!hovering);
-  };
-
-  const handleAddToList = async () => {
-    const url = "http://localhost:3000/api/v1/me/animes";
-    const headers = {
-      Authorization: `Bearer ${userInfo?.token}`,
-      "Content-Type": "application/json",
-    };
-    const body = {
-      malId: anime.malId,
-    };
-
-    try {
-      await fetch(url, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(body),
-      });
-    } catch (err) {
-      if (err instanceof Error) console.error(err.message);
-    }
   };
 
   return (
