@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IAnime } from "../browsePage/types";
+import { IAnime } from "../commonTypes";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { AnimeCard } from "../browsePage/AnimeCard";
 

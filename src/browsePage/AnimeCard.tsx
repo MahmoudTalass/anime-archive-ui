@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { IAnime } from "./types";
+import { IAnime } from "../commonTypes";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import { useState } from "react";
 import { useAddAnimeToList } from "../useAddAnimeToList";

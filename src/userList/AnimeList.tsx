@@ -6,8 +6,8 @@ import {
   AnimeWatchStatus,
   IUserAnimeEntry,
   PaginationResponse,
-} from "../browsePage/types";
-import { UserEntriesAPIResponse } from "./types";
+} from "../commonTypes";
+import { UserEntriesAPIResponse } from "../commonTypes";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { AnimeEntryCard } from "./AnimeEntryCard";

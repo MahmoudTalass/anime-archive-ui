@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Header } from "../commonComponents/Header";
-import { IAnime } from "../browsePage/types";
+import { IAnime } from "../commonTypes";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { AnimeBasedRecommendations } from "./AnimeBasedRecommendations";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
