@@ -10,18 +10,29 @@ export interface IAnime {
 }
 
 export type AnimeWatchStatus = "completed" | "watching" | "planning to watch";
+export type EntryScore =
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "7"
+  | "8"
+  | "9"
+  | "10";
 
 export interface IUserAnimeEntry {
   _id: string;
-  malId: number;
+  malId: string;
   status: AnimeWatchStatus;
-  startedDate?: Date;
-  finishedDate?: Date;
-  notes?: string;
+  startedDate: Date | null;
+  finishedDate: Date | null;
+  notes: string;
   userId: string;
   createdAt: Date;
   updatedAt: Date;
-  score?: number;
+  score: EntryScore | null;
   animeDetails: Omit<IAnime, "year" | "synopsis" | "url" | "episodes">;
 }
 
