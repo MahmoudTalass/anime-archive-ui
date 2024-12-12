@@ -6,6 +6,7 @@ import {
 } from "../browsePage/types";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import { useNavigate } from "react-router";
+import { EntryUpdateFormInputContainer } from "./EntryUpdateFormInputContainer";
 
 const ENTRY_SCORE_TEXT = [
   [1, "Abysmal"],
@@ -144,30 +145,33 @@ export const UpdateEntryDetailsForm = ({
   };
 
   return (
-    <section className="bg-complementary p-6">
-      <h2>Update Entry</h2>
-      <div>
-        <div className="flex gap-4">
+    <section className="bg-complementary p-6 flex flex-col gap-4">
+      <h2 className="text-center text-2xl">
+        Update Entry:{" "}
+        <span className="font-bold">{animeEntry.animeDetails.title}</span>
+      </h2>
+      <div className="flex flex-col gap-4">
+        <EntryUpdateFormInputContainer>
           <label htmlFor="status">Watch status</label>
           <select
             name="status"
             id="status"
             onChange={handleChangeStatus}
             value={status}
-            className="bg-[#8179A4]">
+            className="bg-lighterPurple p-1 rounded-sm">
             <option value="completed">Completed</option>
             <option value="watching">Watching</option>
             <option value="planning to watch">Planning to Watch</option>
           </select>
-        </div>
-        <div>
+        </EntryUpdateFormInputContainer>
+        <EntryUpdateFormInputContainer>
           <label htmlFor="score">Your Score</label>
           <select
             name="score"
             id="score"
             value={score ?? ""}
             onChange={handleChangeScore}
-            className="bg-[#8179A4]">
+            className="bg-lighterPurple">
             <option value="" disabled hidden>
               Select score
             </option>
@@ -179,38 +183,53 @@ export const UpdateEntryDetailsForm = ({
               );
             })}
           </select>
-        </div>
-        <div>
+        </EntryUpdateFormInputContainer>
+        <EntryUpdateFormInputContainer>
           <label htmlFor="startedDate">Started Date</label>
           <input
             type="date"
             value={startedDate ? formatDate(startedDate) : ""}
             onChange={handleStartedDateChange}
-            className="bg-[#8179A4]"
+            className="bg-lighterPurple p-1 rounded-sm"
           />
-        </div>
-        <div>
+        </EntryUpdateFormInputContainer>
+        <EntryUpdateFormInputContainer>
           <label htmlFor="finishedDate">Finished Date</label>
           <input
             type="date"
             value={finishedDate ? formatDate(finishedDate) : ""}
             onChange={handleFinishedDateChange}
-            className="bg-[#8179A4]"
+            className="bg-lighterPurple p-1 rounded-sm"
           />
-        </div>
-        <div className="flex flex-col">
+        </EntryUpdateFormInputContainer>
+        <div className="flex flex-col gap-2">
           <label htmlFor="notes">Notes</label>
           <textarea
             name="notes"
             id="notes"
-            className="bg-[#8179A4] rounded-md p-1"
+            className="bg-lighterPurple rounded-sm p-1"
             onChange={handleChangeNotes}
-            value={notes}></textarea>
+            value={notes}
+            rows={5}></textarea>
         </div>
       </div>
-      <button onClick={handleUpdateEntry}>Update</button>
-      <button onClick={handleDeleteEntry}>Delete</button>
-      <button onClick={handleCloseForm}>Close</button>
+      <div className="flex justify-between">
+        <div className="flex gap-4">
+          <button
+            onClick={handleUpdateEntry}
+            className="bg-lighterPurple px-2 py-1 rounded-md">
+            Update
+          </button>
+          <button onClick={handleCloseForm} className=" px-2 py-1 rounded-md">
+            Close
+          </button>
+        </div>
+        <button
+          onClick={handleDeleteEntry}
+          className="bg-transparent border px-2 py-1 rounded-md hover:bg-red-600 hover:border-red-600">
+          Delete
+        </button>
+      </div>
     </section>
   );
 };
