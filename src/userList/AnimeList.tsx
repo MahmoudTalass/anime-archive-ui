@@ -7,7 +7,7 @@ import {
   IUserAnimeEntry,
   PaginationResponse,
 } from "../commonTypes";
-import { UserEntriesAPIResponse } from "../commonTypes";
+import { UserEntriesAPIResponse } from "./userEntriesTypes";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { AnimeEntryCard } from "./AnimeEntryCard";
