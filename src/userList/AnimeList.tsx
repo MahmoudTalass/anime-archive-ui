@@ -140,7 +140,7 @@ export const AnimeList = () => {
             value={statusFilter}>
             <option value="">All</option>
             <option value="completed">Completed</option>
-            <option value="plan to watch">Plan to watch</option>
+            <option value="planning to watch">Planning to watch</option>
             <option value="watching">Watching</option>
           </select>
         </div>
