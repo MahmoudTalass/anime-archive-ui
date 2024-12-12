@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AnimesAPIResponse, IAnime } from "./types";
+import { AnimesAPIResponse, IAnime } from "../commonTypes";
 import { AnimeCard } from "./AnimeCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";

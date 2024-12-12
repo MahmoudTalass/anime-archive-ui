@@ -1,4 +1,4 @@
-import { IUserAnimeEntry, PaginationResponse } from "../browsePage/types";
+import { IUserAnimeEntry, PaginationResponse } from "../commonTypes";
 
 export interface UserEntriesAPIResponse {
   data: IUserAnimeEntry[];

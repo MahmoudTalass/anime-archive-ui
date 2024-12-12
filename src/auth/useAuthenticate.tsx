@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AuthContextType, useAuth, UserInfo } from "./AuthProvider";
+import { APIErrorResponseType } from "../commonTypes";
 
 interface AuthSuccessResponseType {
   data: {
@@ -9,13 +10,6 @@ interface AuthSuccessResponseType {
       username: string;
       email: string;
     };
-  };
-}
-
-interface AuthErrorResponseType {
-  error: {
-    message: string;
-    statusCode: number;
   };
 }
 
@@ -55,7 +49,7 @@ export const useAuthenticate = (authType: "register" | "login") => {
         headers,
       });
 
-      const responseBody: AuthSuccessResponseType | AuthErrorResponseType =
+      const responseBody: AuthSuccessResponseType | APIErrorResponseType =
         await response.json();
 
       if ("error" in responseBody) {

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
-import { IUserAnimeEntry } from "../browsePage/types";
+import { IUserAnimeEntry } from "../commonTypes";
 import { Link } from "react-router";
 import { UpdateEntryDetailsForm } from "./UpdateEntryDetailsForm";
 
