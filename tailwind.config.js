@@ -8,6 +8,7 @@ export default {
         complementary: "#443F5D",
         accent: "#B8ACCD",
         otherPurple: "#494395",
+        lighterPurple: "#8179A4",
       },
     },
   },
