@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import {
   AnimeWatchStatus,
+  APIErrorResponseType,
   EntryScore,
   IUserAnimeEntry,
-} from "../browsePage/types";
+} from "../commonTypes";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import { useNavigate } from "react-router";
 import { EntryUpdateFormInputContainer } from "./EntryUpdateFormInputContainer";
+import { BsThreeDots } from "react-icons/bs";
 
 const ENTRY_SCORE_TEXT = [
   [1, "Abysmal"],
@@ -43,6 +45,10 @@ export const UpdateEntryDetailsForm = ({
     animeEntry.finishedDate ? new Date(animeEntry.finishedDate) : null
   );
   const [notes, setNotes] = useState(animeEntry.notes);
+
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [updateErrMsg, setUpdateErrMsg] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const handleUpdateEntry = async () => {
@@ -52,6 +58,8 @@ export const UpdateEntryDetailsForm = ({
     animeEntry.startedDate = startedDate;
     animeEntry.finishedDate = finishedDate;
     updateEntryState(animeEntry);
+    setUpdateLoading(true);
+    setUpdateErrMsg(null);
 
     try {
       const response = await fetch(
@@ -72,10 +80,16 @@ export const UpdateEntryDetailsForm = ({
           navigate("/login");
           return;
         }
+        if (response.status === 400) {
+          const errorJson: APIErrorResponseType = await response.json();
+          throw new Error(errorJson.error.message);
+        }
       }
-    } catch (err) {
-    } finally {
       closeModal();
+    } catch (err) {
+      if (err instanceof Error) setUpdateErrMsg(err.message);
+    } finally {
+      setUpdateLoading(false);
     }
   };
 
@@ -213,23 +227,38 @@ export const UpdateEntryDetailsForm = ({
             rows={5}></textarea>
         </div>
       </div>
-      <div className="flex justify-between">
-        <div className="flex gap-4">
-          <button
-            onClick={handleUpdateEntry}
-            className="bg-lighterPurple px-2 py-1 rounded-md">
-            Update
-          </button>
-          <button onClick={handleCloseForm} className=" px-2 py-1 rounded-md">
-            Close
-          </button>
+      {updateErrMsg && (
+        <div>
+          <p className="bg-red-600 p-2 rounded-sm font-bold">{updateErrMsg}</p>
         </div>
-        <button
-          onClick={handleDeleteEntry}
-          className="bg-transparent border px-2 py-1 rounded-md hover:bg-red-600 hover:border-red-600">
-          Delete
-        </button>
-      </div>
+      )}
+      {updateLoading ? (
+        <div className="flex justify-center">
+          <BsThreeDots className="animate-pulse" size={"2rem"} />
+        </div>
+      ) : (
+        <>
+          <div className="flex justify-between">
+            <div className="flex gap-4">
+              <button
+                onClick={handleUpdateEntry}
+                className="bg-lighterPurple px-2 py-1 rounded-md">
+                Update
+              </button>
+              <button
+                onClick={handleCloseForm}
+                className=" px-2 py-1 rounded-md">
+                Close
+              </button>
+            </div>
+            <button
+              onClick={handleDeleteEntry}
+              className="bg-transparent border px-2 py-1 rounded-md hover:bg-red-600 hover:border-red-600">
+              Delete
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 };
