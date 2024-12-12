@@ -3,7 +3,7 @@ import { AuthContextType, useAuth } from "./auth/AuthProvider";
 export const useAddAnimeToList = (malId: number | undefined) => {
   const { userInfo } = useAuth() as AuthContextType;
 
-  const handleAddToList = async () => {
+  const addAnimeToUserList = async () => {
     if (!userInfo) return;
     const url = "http://localhost:3000/api/v1/me/animes";
     const headers = {
@@ -25,5 +25,5 @@ export const useAddAnimeToList = (malId: number | undefined) => {
     }
   };
 
-  return { handleAddToList };
+  return { addAnimeToUserList };
 };

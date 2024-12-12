@@ -14,7 +14,11 @@ export const AnimePage = () => {
 
   const { userInfo } = useAuth() as AuthContextType;
   let { malId } = useParams();
-  const { handleAddToList } = useAddAnimeToList(Number(malId));
+  const { addAnimeToUserList } = useAddAnimeToList(Number(malId));
+
+  const handleAddToUserList = () => {
+    addAnimeToUserList();
+  };
 
   useEffect(() => {
     setErrorMsg(null);
@@ -90,7 +94,7 @@ export const AnimePage = () => {
                 {userInfo && (
                   <button
                     className="w-fit bg-otherPurple p-1 px-2 rounded-lg"
-                    onClick={handleAddToList}>
+                    onClick={handleAddToUserList}>
                     Add to list
                   </button>
                 )}
