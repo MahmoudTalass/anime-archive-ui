@@ -8,7 +8,7 @@ export const Header = ({
 }: {
   children?: React.JSX.Element | React.JSX.Element[];
 }) => {
-  const { userInfo } = useAuth() as AuthContextType;
+  const { userInfo, logout } = useAuth() as AuthContextType;
   const navigate = useNavigate();
   const [getRandomLoading, setGetRandomLoading] = useState(false);
 
@@ -28,6 +28,10 @@ export const Header = ({
     }
   };
 
+  const handleLogoutUser = () => {
+    logout();
+  };
+
   return (
     <div className="flex justify-around items-center w-full p-4 py-8">
       <Link to="/home">
@@ -44,18 +48,25 @@ export const Header = ({
         <p>Random</p>
       </button>
       {userInfo ? (
-        <Link to="/mylist" className="text-lg">
-          My List
-        </Link>
+        <>
+          <Link to="/mylist" className="text-lg">
+            My List
+          </Link>
+          <button
+            className="bg-otherPurple px-4 py-3 rounded-xl font-bold"
+            onClick={handleLogoutUser}>
+            Logout
+          </button>
+        </>
       ) : (
         <div className="flex gap-4">
           <Link to="/login">
-            <button className="bg-[#494395] px-4 py-3 rounded-xl font-bold">
+            <button className="bg-otherPurple px-4 py-3 rounded-xl font-bold">
               Login
             </button>
           </Link>
           <Link to="/register">
-            <button className="bg-[#494395] px-4 py-3 rounded-xl font-bold">
+            <button className="bg-otherPurple px-4 py-3 rounded-xl font-bold">
               Register
             </button>
           </Link>
