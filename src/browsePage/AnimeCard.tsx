@@ -28,12 +28,12 @@ export const AnimeCard = ({ anime }: { anime: Partial<IAnime> }) => {
           <div className="absolute w-full inset-0 bg-black bg-opacity-50 transition duration-150 rounded-lg flex flex-col justify-center items-center gap-4">
             <Link
               to={`/animes/${anime.malId}`}
-              className="bg-[#494395] w-fit p-1 px-3 rounded-md">
+              className="bg-otherPurple w-fit p-1 px-3 rounded-md">
               View
             </Link>
             {userInfo && (
               <button
-                className="bg-[#494395] w-fit p-1 px-3 rounded-md"
+                className="bg-otherPurple w-fit p-1 px-3 rounded-md"
                 onClick={handleAddToList}>
                 Add to list
               </button>

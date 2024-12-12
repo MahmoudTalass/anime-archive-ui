@@ -7,6 +7,7 @@ export default {
         dominant: "#17152F",
         complementary: "#443F5D",
         accent: "#B8ACCD",
+        otherPurple: "#494395",
       },
     },
   },

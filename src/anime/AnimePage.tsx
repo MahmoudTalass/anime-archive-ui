@@ -89,7 +89,7 @@ export const AnimePage = () => {
                 </a>
                 {userInfo && (
                   <button
-                    className="w-fit bg-[#494395] p-1 px-2 rounded-lg"
+                    className="w-fit bg-otherPurple p-1 px-2 rounded-lg"
                     onClick={handleAddToList}>
                     Add to list
                   </button>

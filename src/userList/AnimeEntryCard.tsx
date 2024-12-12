@@ -64,13 +64,13 @@ export const AnimeEntryCard = ({
           {hovering && (
             <div className="absolute w-full inset-0 bg-black bg-opacity-50 transition duration-150 rounded-lg flex flex-col justify-center items-center gap-4">
               <button
-                className="bg-[#494395] w-fit p-1 px-3 rounded-md"
+                className="bg-otherPurple w-fit p-1 px-3 rounded-md"
                 onClick={showModal}>
                 Update
               </button>
 
               <Link to={`/animes/${animeEntry.malId}`}>
-                <button className="bg-[#494395] w-fit p-1 px-3 rounded-md">
+                <button className="bg-otherPurple w-fit p-1 px-3 rounded-md">
                   View
                 </button>
               </Link>
