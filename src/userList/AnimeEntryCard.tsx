@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import { IUserAnimeEntry } from "../browsePage/types";
 import { Link } from "react-router";
-import { UpdateEntryDetailsForm } from "./UpdateEntryDetailsFormModal";
+import { UpdateEntryDetailsForm } from "./UpdateEntryDetailsForm";
 
 export const AnimeEntryCard = ({
   animeEntry,
