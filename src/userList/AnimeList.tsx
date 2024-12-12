@@ -2,7 +2,11 @@ import { useNavigate } from "react-router";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { Header } from "../commonComponents/Header";
-import { AnimeWatchStatus, IUserAnimeEntry } from "../browsePage/types";
+import {
+  AnimeWatchStatus,
+  IUserAnimeEntry,
+  PaginationResponse,
+} from "../browsePage/types";
 import { UserEntriesAPIResponse } from "./types";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -10,7 +14,7 @@ import { AnimeEntryCard } from "./AnimeEntryCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export const AnimeList = () => {
-  const { userInfo } = useAuth() as AuthContextType;
+  const { userInfo, logout } = useAuth() as AuthContextType;
 
   const [data, setData] = useState<UserEntriesAPIResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -20,6 +24,28 @@ export const AnimeList = () => {
   const [statusFilter, setStatusFilter] = useState<AnimeWatchStatus | "">("");
   const [currentSearchTerm, setCurrentSearchTerm] = useState("");
   const [searchTermInput, setSearchTermInput] = useState("");
+
+  const updateEntryState = (animeEntry: IUserAnimeEntry) => {
+    let updatedState: UserEntriesAPIResponse = {
+      pagination: data?.pagination as PaginationResponse,
+      data: data?.data.map((entry) => {
+        if (entry.malId === animeEntry.malId) return animeEntry;
+        else return entry;
+      }) as IUserAnimeEntry[],
+    };
+
+    setData(updatedState);
+  };
+  const deleteEntryState = (malId: string) => {
+    let updatedState: UserEntriesAPIResponse = {
+      pagination: data?.pagination as PaginationResponse,
+      data: data?.data.filter(
+        (entry) => entry.malId !== malId
+      ) as IUserAnimeEntry[],
+    };
+
+    setData(updatedState);
+  };
 
   const handleSearchTermInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -67,6 +93,11 @@ export const AnimeList = () => {
         });
 
         if (!response.ok) {
+          if (response.status === 401) {
+            logout();
+            navigate("/login");
+            return;
+          }
           throw new Error("Could not retrieve list, please try again later.");
         }
 
@@ -102,8 +133,9 @@ export const AnimeList = () => {
           </div>
           <select
             onChange={handleChangeStatus}
-            className="bg-complementary rounded-lg p-1">
-            <option value="">Status</option>
+            className="bg-complementary rounded-lg p-1"
+            value={statusFilter}>
+            <option value="">All</option>
             <option value="completed">Completed</option>
             <option value="plan to watch">Plan to watch</option>
             <option value="watching">Watching</option>
@@ -122,7 +154,12 @@ export const AnimeList = () => {
             {" "}
             <div className="flex gap-8 flex-wrap ">
               {data?.data.map((animeEntry: IUserAnimeEntry) => (
-                <AnimeEntryCard animeEntry={animeEntry} key={animeEntry._id} />
+                <AnimeEntryCard
+                  animeEntry={animeEntry}
+                  key={animeEntry._id}
+                  updateEntryState={updateEntryState}
+                  deleteEntryState={deleteEntryState}
+                />
               ))}
             </div>
           </>
