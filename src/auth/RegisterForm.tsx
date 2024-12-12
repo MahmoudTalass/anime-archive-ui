@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { AuthFormContainer } from "./components/AuthFormContainer";
 import { AuthFormInput } from "./components/AuthFormInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthenticate } from "./useAuthenticate";
 import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
 import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
@@ -15,7 +15,9 @@ export const RegisterForm = () => {
   const { userInfo } = useAuth() as AuthContextType;
   const navigate = useNavigate();
 
-  if (userInfo) navigate("/");
+  useEffect(() => {
+    if (userInfo) navigate("/");
+  }, [userInfo]);
 
   const handleUsernameInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value);

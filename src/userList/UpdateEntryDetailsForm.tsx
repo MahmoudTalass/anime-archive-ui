@@ -44,8 +44,6 @@ export const UpdateEntryDetailsForm = ({
   const [notes, setNotes] = useState(animeEntry.notes);
   const navigate = useNavigate();
 
-  if (!userInfo) navigate("/login");
-
   const handleUpdateEntry = async () => {
     animeEntry.notes = notes;
     animeEntry.score = score;

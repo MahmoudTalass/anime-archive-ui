@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import { AuthFormContainer } from "./components/AuthFormContainer";
 import { AuthFormInput } from "./components/AuthFormInput";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
 import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
 import { useAuthenticate } from "./useAuthenticate";
@@ -13,8 +13,6 @@ export const LoginForm = () => {
   const { handleAuth, errorMsg, loading } = useAuthenticate("login");
   const { userInfo }: AuthContextType = useAuth() as AuthContextType;
   const navigate = useNavigate();
-
-  if (userInfo) navigate("/");
 
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -32,6 +30,10 @@ export const LoginForm = () => {
       setEmail("");
     }
   };
+
+  useEffect(() => {
+    if (userInfo) navigate("/");
+  }, [userInfo]);
 
   return (
     <AuthFormPageContainer>

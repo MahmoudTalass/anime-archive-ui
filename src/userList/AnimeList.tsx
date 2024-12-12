@@ -70,7 +70,9 @@ export const AnimeList = () => {
 
   const navigate = useNavigate();
 
-  if (!userInfo) navigate("/");
+  useEffect(() => {
+    if (!userInfo) navigate("/login");
+  }, [userInfo]);
 
   useEffect(() => {
     setErrorMsg(null);
@@ -110,7 +112,8 @@ export const AnimeList = () => {
         setLoading(false);
       }
     };
-    fetchData();
+
+    if (userInfo) fetchData();
   }, [statusFilter, currentPage, currentSearchTerm]);
 
   return (
