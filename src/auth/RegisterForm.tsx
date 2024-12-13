@@ -31,6 +31,7 @@ export const RegisterForm = () => {
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (
     e: React.FormEvent<HTMLFormElement>
   ) => {
+    e.preventDefault();
     if (
       email.trim() === "" ||
       username.trim() === "" ||

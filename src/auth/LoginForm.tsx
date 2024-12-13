@@ -24,7 +24,7 @@ export const LoginForm = () => {
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (
     e: React.FormEvent<HTMLFormElement>
   ) => {
-    console.log(e);
+    e.preventDefault();
     if (email.trim() === "" || password.trim() === "") {
       return;
     }
