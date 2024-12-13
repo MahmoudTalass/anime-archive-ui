@@ -1,16 +1,13 @@
 import { Link } from "react-router";
 import { IAnime } from "../commonTypes";
-import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import { useState } from "react";
-import { useAddAnimeToList } from "../useAddAnimeToList";
+import { AddAnimeToListBtn } from "../AddAnimeToListBtn";
 
 export const AnimeCard = ({ anime }: { anime: Partial<IAnime> }) => {
-  const { userInfo } = useAuth() as AuthContextType;
   const [hovering, setHovering] = useState(false);
-  const { addAnimeToUserList } = useAddAnimeToList(anime.malId);
 
   const handleSwitchHoverStatus = () => {
-    if (userInfo) setHovering(!hovering);
+    setHovering(!hovering);
   };
 
   return (
@@ -31,13 +28,7 @@ export const AnimeCard = ({ anime }: { anime: Partial<IAnime> }) => {
               className="bg-otherPurple w-fit p-1 px-3 rounded-md">
               View
             </Link>
-            {userInfo && (
-              <button
-                className="bg-otherPurple w-fit p-1 px-3 rounded-md"
-                onClick={addAnimeToUserList}>
-                Add to list
-              </button>
-            )}
+            <AddAnimeToListBtn malId={anime.malId as string} />
           </div>
         )}
       </div>
