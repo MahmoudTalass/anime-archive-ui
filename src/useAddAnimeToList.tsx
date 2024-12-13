@@ -1,6 +1,6 @@
 import { AuthContextType, useAuth } from "./auth/AuthProvider";
 
-export const useAddAnimeToList = (malId: number | undefined) => {
+export const useAddAnimeToList = (malId: string) => {
   const { userInfo } = useAuth() as AuthContextType;
 
   const addAnimeToUserList = async () => {

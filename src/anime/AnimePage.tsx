@@ -6,6 +6,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { AnimeBasedRecommendations } from "./AnimeBasedRecommendations";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
 import { useAddAnimeToList } from "../useAddAnimeToList";
+import { AddAnimeToListBtn } from "../AddAnimeToListBtn";
 
 export const AnimePage = () => {
   const [loading, setLoading] = useState(false);
@@ -13,12 +14,8 @@ export const AnimePage = () => {
   const [anime, setAnime] = useState<IAnime | null>(null);
 
   const { userInfo } = useAuth() as AuthContextType;
-  let { malId } = useParams();
-  const { addAnimeToUserList } = useAddAnimeToList(Number(malId));
-
-  const handleAddToUserList = () => {
-    addAnimeToUserList();
-  };
+  const params = useParams();
+  const malId = params.malId as string;
 
   useEffect(() => {
     setErrorMsg(null);
@@ -92,13 +89,7 @@ export const AnimePage = () => {
                   className="underline w-fit">
                   More Details
                 </a>
-                {userInfo && (
-                  <button
-                    className="w-fit bg-otherPurple p-1 px-2 rounded-lg"
-                    onClick={handleAddToUserList}>
-                    Add to list
-                  </button>
-                )}
+                <AddAnimeToListBtn malId={malId} />
               </div>
             </div>
           </div>
