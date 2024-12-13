@@ -57,7 +57,6 @@ export const UpdateEntryDetailsForm = ({
     animeEntry.status = status;
     animeEntry.startedDate = startedDate;
     animeEntry.finishedDate = finishedDate;
-    updateEntryState(animeEntry);
     setUpdateLoading(true);
     setUpdateErrMsg(null);
 
@@ -85,6 +84,7 @@ export const UpdateEntryDetailsForm = ({
           throw new Error(errorJson.error.message);
         }
       }
+      updateEntryState(animeEntry);
       closeModal();
     } catch (err) {
       if (err instanceof Error) setUpdateErrMsg(err.message);
