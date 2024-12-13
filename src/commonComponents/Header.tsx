@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router";
 import { FaRandom } from "react-icons/fa";
 import React, { useState } from "react";
 import { AuthContextType, useAuth } from "../auth/AuthProvider";
+import { MdFormatListBulleted } from "react-icons/md";
 
 export const Header = ({
   children,
@@ -41,15 +42,16 @@ export const Header = ({
       </Link>
       {children}
       <button
-        className="flex flex-col items-center"
+        className="flex items-center gap-2"
         onClick={handleRandomAnimeBtn}
         disabled={getRandomLoading}>
-        <FaRandom size="1.2rem" />
+        <FaRandom size="1.3rem" />
         <p>Random</p>
       </button>
       {userInfo ? (
         <>
-          <Link to="/mylist" className="text-lg">
+          <Link to="/mylist" className="text-lg flex items-center gap-1">
+            <MdFormatListBulleted size="1.5rem" />
             My List
           </Link>
           <button
