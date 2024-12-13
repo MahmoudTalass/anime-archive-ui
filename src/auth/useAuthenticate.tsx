@@ -54,10 +54,12 @@ export const useAuthenticate = (authType: "register" | "login") => {
 
       if ("error" in responseBody) {
         if (!response.ok) {
+          console.log(responseBody);
           if (
             response.status === 403 ||
             response.status === 400 ||
-            response.status === 401
+            response.status === 401 ||
+            response.status === 404
           ) {
             throw new Error(responseBody.error.message);
           } else {
