@@ -5,25 +5,40 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Header } from "../commonComponents/Header";
+import { useSearchParams } from "react-router";
 
 export const BrowseAnimesPage = () => {
   const [data, setData] = useState<AnimesAPIResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>();
   const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [currentSearchTerm, setCurrentSearchTerm] = useState("");
-  const [searchTermInput, setSearchTermInput] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTermInput, setSearchTermInput] = useState(
+    () => searchParams.get("q") || ""
+  );
 
   const handleSearchTermInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => setSearchTermInput(e.target.value);
+
+  const handleCurrentSearchTermChange = () => {
+    const searchTerm = searchParams.get("q");
+    if (searchTermInput !== searchTerm) {
+      setSearchParams({ q: searchTermInput });
+    }
+  };
+
+  const handleCurrentSearchTermChangeByEnter = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (e.key === "Enter") {
+      handleCurrentSearchTermChange();
+    }
+  };
+
   const handleIncrementPageNum = () => {
     if (currentPage !== data?.pagination.totalPages)
       setCurrentPage(currentPage + 1);
-  };
-  const handleCurrentSearchTermChange = () => {
-    if (searchTermInput !== currentSearchTerm)
-      setCurrentSearchTerm(searchTermInput);
   };
 
   const handleDecrementPageNum = () => {
@@ -38,7 +53,9 @@ export const BrowseAnimesPage = () => {
     const fetchData = async () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       const controller = new AbortController();
-      const url = `http://localhost:3000/api/v1/animes?page=${currentPage}&q=${currentSearchTerm}`;
+      const url = `http://localhost:3000/api/v1/animes?page=${currentPage}&q=${
+        searchParams.get("q") ?? ""
+      }`;
 
       try {
         const response = await fetch(url, { signal: controller.signal });
@@ -61,7 +78,7 @@ export const BrowseAnimesPage = () => {
     fetchData();
 
     return controller.abort();
-  }, [currentPage, currentSearchTerm]);
+  }, [currentPage, searchParams]);
 
   return (
     <>
@@ -71,8 +88,9 @@ export const BrowseAnimesPage = () => {
             type="search"
             value={searchTermInput}
             onChange={handleSearchTermInputChange}
+            onKeyDown={handleCurrentSearchTermChangeByEnter}
             placeholder="Search anime..."
-            className="grow text-black"
+            className="grow text-black px-1"
           />
           <IoMdSearch
             className="text-complementary text-2xl"
