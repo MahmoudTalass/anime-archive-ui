@@ -7,6 +7,8 @@ import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
 import { useAuthenticate } from "./useAuthenticate";
 import { AuthContextType, useAuth } from "./AuthProvider";
 
+const FORM_ID = "loginForm";
+
 export const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -19,7 +21,10 @@ export const LoginForm = () => {
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
 
-  const onSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    console.log(e);
     if (email.trim() === "" || password.trim() === "") {
       return;
     }
@@ -37,7 +42,7 @@ export const LoginForm = () => {
 
   return (
     <AuthFormPageContainer>
-      <AuthFormContainer>
+      <AuthFormContainer onSubmit={onSubmit} formId={FORM_ID}>
         <AuthFormInput
           inputTitle="Email"
           inputType="email"
@@ -64,7 +69,7 @@ export const LoginForm = () => {
           )}
         </>
       </AuthFormContainer>
-      <AuthFormSubmitBtn disabled={loading} label="Login" onClick={onSubmit} />
+      <AuthFormSubmitBtn disabled={loading} label="Login" formAttr={FORM_ID} />
     </AuthFormPageContainer>
   );
 };

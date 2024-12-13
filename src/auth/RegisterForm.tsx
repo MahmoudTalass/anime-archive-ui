@@ -7,6 +7,8 @@ import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
 import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
 import { AuthContextType, useAuth } from "./AuthProvider";
 
+const FORM_ID = "registrationForm";
+
 export const RegisterForm = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -26,7 +28,9 @@ export const RegisterForm = () => {
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
 
-  const onSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     if (
       email.trim() === "" ||
       username.trim() === "" ||
@@ -46,7 +50,7 @@ export const RegisterForm = () => {
 
   return (
     <AuthFormPageContainer>
-      <AuthFormContainer>
+      <AuthFormContainer onSubmit={onSubmit} formId={FORM_ID}>
         <AuthFormInput
           inputTitle="Username"
           inputType="text"
@@ -83,7 +87,7 @@ export const RegisterForm = () => {
       <AuthFormSubmitBtn
         disabled={loading}
         label="Create Account"
-        onClick={onSubmit}
+        formAttr={FORM_ID}
       />
     </AuthFormPageContainer>
   );
