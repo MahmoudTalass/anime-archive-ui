@@ -68,6 +68,7 @@ export const AnimePage = () => {
             <img
               src={anime?.imageUrl}
               alt={`Poster for anime with title '${anime?.title}'`}
+              className="self-start"
             />
             <div className="flex flex-col gap-4">
               <p className="text-3xl font-bold">{anime?.title}</p>
