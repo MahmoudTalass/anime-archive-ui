@@ -1,5 +1,5 @@
 export interface IAnime {
-  malId: number;
+  malId: string;
   title: string;
   imageUrl?: string;
   episodes: number;
