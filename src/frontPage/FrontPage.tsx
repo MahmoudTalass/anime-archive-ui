@@ -46,6 +46,13 @@ export const FrontPage = (): React.JSX.Element => {
                 Browse Anime
               </button>
             </Link>
+            {userInfo && (
+              <Link to="/mylist">
+                <button className="rounded-xl w-32 py-3 border-2 border-accent hover:scale-105 transition-transform">
+                  My List
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </section>
