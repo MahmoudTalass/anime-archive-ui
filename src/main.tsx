@@ -12,20 +12,20 @@ import { AnimePage } from "./anime/AnimePage.tsx";
 import { AnimeList } from "./userList/AnimeList.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  // <StrictMode>
-  <AuthProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<PageLayout />}>
-          <Route path="/" element={<FrontPage />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/home" element={<BrowseAnimesPage />} />
-          <Route path="/animes/:malId" element={<AnimePage />} />
-          <Route path="/mylist" element={<AnimeList />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </AuthProvider>
-  // </StrictMode>
+  <StrictMode>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<PageLayout />}>
+            <Route path="/" element={<FrontPage />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/home" element={<BrowseAnimesPage />} />
+            <Route path="/animes/:malId" element={<AnimePage />} />
+            <Route path="/mylist" element={<AnimeList />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  </StrictMode>
 );
