@@ -38,10 +38,6 @@ export const RegisterForm = () => {
       handleAuth(email, password, username);
 
       setPassword("");
-      if (!(typeof errorMsg === "string")) {
-         setEmail("");
-         setUsername("");
-      }
    };
 
    return (
