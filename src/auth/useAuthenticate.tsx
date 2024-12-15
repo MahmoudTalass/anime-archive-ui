@@ -73,9 +73,7 @@ export const useAuthenticate = (authType: "register" | "login") => {
 
          login(userInfoObj);
       } catch (e) {
-         if (e instanceof Error) {
-            setErrorMsg(e.message);
-         }
+         if (e instanceof Error) setErrorMsg(e.message);
       } finally {
          setLoading(false);
       }
