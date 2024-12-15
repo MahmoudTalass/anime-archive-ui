@@ -73,7 +73,6 @@ export const UpdateEntryDetailsForm = ({
                },
             }
          );
-
          if (!response.ok) {
             if (response.status === 401) {
                logout();
@@ -112,9 +111,11 @@ export const UpdateEntryDetailsForm = ({
                navigate("/login");
                return;
             }
+            throw new Error("Could not delete entry.");
          }
          deleteEntryState(animeEntry.malId);
       } catch (err) {
+         if (err instanceof Error) console.log(err.message);
       } finally {
          closeModal();
       }
@@ -245,11 +246,16 @@ export const UpdateEntryDetailsForm = ({
                      <button className="bg-lighterPurple px-2 py-1 rounded-md" type="submit">
                         Update
                      </button>
-                     <button onClick={handleCloseForm} className=" px-2 py-1 rounded-md">
+                     <button
+                        onClick={handleCloseForm}
+                        className=" px-2 py-1 rounded-md"
+                        type="button"
+                     >
                         Close
                      </button>
                   </div>
                   <button
+                     type="button"
                      onClick={handleDeleteEntry}
                      className="bg-transparent border px-2 py-1 rounded-md hover:bg-red-600 hover:border-red-600"
                   >
