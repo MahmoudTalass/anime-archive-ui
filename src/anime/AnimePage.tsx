@@ -57,7 +57,7 @@ export const AnimePage = () => {
             <div>{errorMsg}</div>
          ) : (
             <section className="flex flex-col p-8 gap-8">
-               <div className="flex gap-4">
+               <div className="flex flex-col sm:flex-row gap-4">
                   <img
                      src={anime?.imageUrl}
                      alt={`Poster for anime with title '${anime?.title}'`}
