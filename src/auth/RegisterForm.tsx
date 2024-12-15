@@ -6,6 +6,7 @@ import { useAuthenticate } from "./useAuthenticate";
 import { AuthFormPageContainer } from "./components/AuthFormPageContainer";
 import { AuthFormSubmitBtn } from "./components/AuthFormSubmitBtn";
 import { AuthContextType, useAuth } from "./AuthProvider";
+import { BsThreeDots } from "react-icons/bs";
 
 const FORM_ID = "registrationForm";
 
@@ -72,7 +73,13 @@ export const RegisterForm = () => {
             </p>
             <>{errorMsg && <p className="bg-red-600 p-2 text-center rounded-md">{errorMsg}</p>}</>
          </AuthFormContainer>
-         <AuthFormSubmitBtn disabled={loading} label="Create Account" formAttr={FORM_ID} />
+         <AuthFormSubmitBtn disabled={loading} formAttr={FORM_ID}>
+            {loading ? (
+               <BsThreeDots className="animate-pulse" size={"2rem"} />
+            ) : (
+               <p>Create Account</p>
+            )}
+         </AuthFormSubmitBtn>
       </AuthFormPageContainer>
    );
 };
