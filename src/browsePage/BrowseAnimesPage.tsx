@@ -53,7 +53,7 @@ export const BrowseAnimesPage = () => {
       const fetchData = async () => {
          window.scrollTo({ top: 0, behavior: "smooth" });
          const controller = new AbortController();
-         const url = `http://localhost:3000/api/v1/animes?page=${currentPage}&q=${searchTerm}`;
+         const url = `https://anime-archive-api.fly.dev/api/v1/animes?page=${currentPage}&q=${searchTerm}`;
 
          try {
             const response = await fetch(url, { signal: controller.signal });

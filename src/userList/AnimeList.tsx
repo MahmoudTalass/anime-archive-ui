@@ -75,7 +75,7 @@ export const AnimeList = () => {
 
       const fetchData = async () => {
          window.scrollTo({ top: 0, behavior: "smooth" });
-         let url = `http://localhost:3000/api/v1/me/animes?page=${currentPage}`;
+         let url = `https://anime-archive-api.fly.dev/api/v1/me/animes?page=${currentPage}`;
          if (statusFilter !== "") url += `&status=${statusFilter}`;
          if (currentSearchTerm !== "") url += `&q=${currentSearchTerm}`;
 

@@ -12,7 +12,7 @@ export const Header = ({ children }: { children?: React.JSX.Element | React.JSX.
    const handleRandomAnimeBtn = async () => {
       setGetRandomLoading(true);
       try {
-         const response = await fetch("http://localhost:3000/api/v1/animes/random");
+         const response = await fetch("https://anime-archive-api.fly.dev/api/v1/animes/random");
          const data: { data: { malId: number } } = await response.json();
          if (response.ok) {
             navigate(`/animes/${data.data.malId}`);

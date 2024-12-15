@@ -21,7 +21,7 @@ export const useAuthenticate = (authType: "register" | "login") => {
    const handleAuth = async (email: string, password: string, username?: string) => {
       setLoading(true);
       setErrorMsg(null);
-      const authApiUrl = `http://localhost:3000/api/v1/auth/${authType}`;
+      const authApiUrl = `https://anime-archive-api.fly.dev/api/v1/auth/${authType}`;
       const body: Record<string, any> = {
          email,
          password,
