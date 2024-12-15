@@ -51,7 +51,8 @@ export const UpdateEntryDetailsForm = ({
 
    const navigate = useNavigate();
 
-   const handleUpdateEntry = async () => {
+   const handleUpdateEntry = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
       animeEntry.notes = notes;
       animeEntry.score = score;
       animeEntry.status = status;
@@ -158,7 +159,7 @@ export const UpdateEntryDetailsForm = ({
    };
 
    return (
-      <section className="bg-complementary p-6 flex flex-col gap-4">
+      <form className="bg-complementary p-6 flex flex-col gap-4" onSubmit={handleUpdateEntry}>
          <h2 className="text-center text-2xl">
             Update Entry: <span className="font-bold">{animeEntry.animeDetails.title}</span>
          </h2>
@@ -241,10 +242,7 @@ export const UpdateEntryDetailsForm = ({
             <>
                <div className="flex justify-between">
                   <div className="flex gap-4">
-                     <button
-                        onClick={handleUpdateEntry}
-                        className="bg-lighterPurple px-2 py-1 rounded-md"
-                     >
+                     <button className="bg-lighterPurple px-2 py-1 rounded-md" type="submit">
                         Update
                      </button>
                      <button onClick={handleCloseForm} className=" px-2 py-1 rounded-md">
@@ -260,6 +258,6 @@ export const UpdateEntryDetailsForm = ({
                </div>
             </>
          )}
-      </section>
+      </form>
    );
 };
