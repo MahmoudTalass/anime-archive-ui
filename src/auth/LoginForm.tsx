@@ -16,6 +16,10 @@ export const LoginForm = () => {
    const { userInfo }: AuthContextType = useAuth() as AuthContextType;
    const navigate = useNavigate();
 
+   useEffect(() => {
+      if (userInfo) navigate("/");
+   }, [userInfo, navigate]);
+
    const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
    const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) =>
       setPassword(e.target.value);
@@ -31,10 +35,6 @@ export const LoginForm = () => {
       handleAuth(email, password);
       setPassword("");
    };
-
-   useEffect(() => {
-      if (userInfo) navigate("/");
-   }, [userInfo, navigate]);
 
    return (
       <AuthFormPageContainer>
